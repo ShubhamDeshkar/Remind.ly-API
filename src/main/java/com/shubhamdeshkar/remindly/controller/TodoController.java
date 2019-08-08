@@ -38,11 +38,20 @@ public class TodoController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-//    @PutMapping("/todos/{todoId}")
-//    public void updateTodo(@PathVariable String uId, @PathVariable String todoId) {
-//
-//    }
-//
+    @PutMapping("/todos/{todoId}")
+    public ResponseEntity updateTodo(@PathVariable String uId, @PathVariable String todoId, @RequestBody Todo todo) {
+        Todo existingTodo = todoRepo.findById(todoId).get();
+        if (existingTodo.getUser().getId().equals(uId)) {
+            existingTodo.setDescription(todo.getDescription());
+            existingTodo.setStatus(todo.getStatus());
+            existingTodo.setTargetDate(todo.getTargetDate());
+            // need something for date modification
+            Todo newTodo = todoRepo.save(existingTodo);
+            return ResponseEntity.ok(newTodo);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 //    @DeleteMapping("/todos/{todoId}")
 //    public void deleteTodo(@PathVariable String uId, @PathVariable String todoId) {
 //
