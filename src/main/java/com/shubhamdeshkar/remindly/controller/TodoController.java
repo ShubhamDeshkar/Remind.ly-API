@@ -52,11 +52,16 @@ public class TodoController {
         return ResponseEntity.notFound().build();
     }
 
-//    @DeleteMapping("/todos/{todoId}")
-//    public void deleteTodo(@PathVariable String uId, @PathVariable String todoId) {
-//
-//    }
-//
+    @DeleteMapping("/todos/{todoId}")
+    public ResponseEntity deleteTodo(@PathVariable String uId, @PathVariable String todoId) {
+        Optional<Todo> optionalTodo = todoRepo.findById(todoId);
+        if (optionalTodo.isPresent() && optionalTodo.get().getUser().getId().equals(uId)) {
+            todoRepo.delete(optionalTodo.get());
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 //    @GetMapping("/todos")
 //    public void getTodos(@PathVariable String uId) {
 //
