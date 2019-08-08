@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -62,8 +63,8 @@ public class TodoController {
         return ResponseEntity.notFound().build();
     }
 
-//    @GetMapping("/todos")
-//    public void getTodos(@PathVariable String uId) {
-//
-//    }
+    @GetMapping("/todos")
+    public List<Todo> getTodos(@PathVariable String uId) {
+         return todoRepo.findByUser_id(uId);
+    }
 }
