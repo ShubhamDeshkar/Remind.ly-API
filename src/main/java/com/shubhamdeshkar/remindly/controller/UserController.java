@@ -19,12 +19,8 @@ public class UserController {
     @Autowired
     private UserRepository userRepo;
 
-    @GetMapping("/")
-    public String home() {
-        return "This is homepage";
-    }
 
-    @PostMapping("/new")
+    @PostMapping("/signup")
     public ResponseEntity<Void> createUser(@RequestBody User user) {
         User newUser = userRepo.save(user);
         URI uri = ServletUriComponentsBuilder
@@ -35,6 +31,7 @@ public class UserController {
         return ResponseEntity.created(uri).build();
     }
 
+
     @GetMapping("/{uId}")
     public ResponseEntity getUser(@PathVariable String uId) {
         Optional<User> optionalUser = userRepo.findById(uId);
@@ -42,6 +39,7 @@ public class UserController {
             return ResponseEntity.ok(optionalUser.get());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
+
 
     @PutMapping("/{uId}")
     public ResponseEntity<User> updateUser(@PathVariable String uId, @RequestBody User user) {
