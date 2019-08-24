@@ -21,7 +21,7 @@ public class Todo {
     private String status;
 
     @Column(nullable = false)
-    private Timestamp dateModified;
+    private Timestamp lastModified;
 
     @Column(nullable = false)
     private Timestamp targetDate;
@@ -51,12 +51,12 @@ public class Todo {
         this.status = status;
     }
 
-    public Timestamp getDateModified() {
-        return dateModified;
+    public Timestamp getLastModified() {
+        return lastModified;
     }
 
-    public void setDateModified(Timestamp dateModified) {
-        this.dateModified = dateModified;
+    public void setLastModified(Timestamp lastModified) {
+        this.lastModified = lastModified;
     }
 
     public Timestamp getTargetDate() {
